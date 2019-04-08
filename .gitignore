@@ -33,4 +33,4 @@ target/
 *.log
 .packages
 .python-version
-.mvn/*
+.*
