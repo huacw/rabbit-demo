@@ -1,4 +1,4 @@
-package net.sea.mq.direct.task;
+package net.sea.mq.task;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
