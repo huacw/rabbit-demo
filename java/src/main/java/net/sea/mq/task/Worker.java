@@ -11,7 +11,11 @@ public class Worker {
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost("192.168.3.162");
+        factory.setPort(5672);
+//        factory.setVirtualHost("/");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         final Connection connection = factory.newConnection();
         final Channel channel = connection.createChannel();
 

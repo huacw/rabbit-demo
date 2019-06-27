@@ -11,7 +11,11 @@ public class NewTask {
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost("192.168.3.162");
+        factory.setPort(5672);
+        factory.setVirtualHost("/");
+        factory.setUsername("admin");
+        factory.setPassword("admin");
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
             channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
@@ -19,7 +23,7 @@ public class NewTask {
 //            String message = String.join(" ", argv);
 
             for (int i = 0; i < 10; i++) {
-                sendMessage(channel,i);
+                sendMessage(channel, i);
             }
         }
     }
