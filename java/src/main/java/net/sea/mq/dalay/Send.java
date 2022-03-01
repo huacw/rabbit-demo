@@ -6,6 +6,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Send {
@@ -41,7 +42,8 @@ public class Send {
 //        channel.close();
 //        connection.close();
 
-        try (RabbitMQUtil.RabbitMQProducer<String> producer = new RabbitMQUtil.RabbitMQProducer("192.168.3.162", 5672, "/", "admin", "admin", "MAIN_QUEUE", "DELAY_QUEUE", (RabbitMQUtil.IMessageHandler<String, byte[]>) data -> {
+        Random random = new Random();
+        try (RabbitMQUtil.RabbitMQProducer<String> producer = new RabbitMQUtil.RabbitMQProducer("192.168.2.162", 5672, "/", "admin", "admin", "MAIN_QUEUE", "DELAY_QUEUE", (RabbitMQUtil.IMessageHandler<String, byte[]>) data -> {
             if (data == null || data.trim().length() == 0) {
                 return new byte[0];
             }
@@ -49,7 +51,9 @@ public class Send {
         });) {
             byte i = 10;
             while (i-- > 0) {
-                producer.send("msg" + i, i * 1000);
+                int timeout = random.nextInt(10) * 1000;
+                System.out.println("timeout=" + timeout);
+                producer.send("msg" + i, timeout);
             }
         } catch (Exception e) {
             e.printStackTrace();

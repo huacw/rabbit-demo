@@ -11,12 +11,13 @@ public class ReceiveLogsTopic {
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost("192.168.0.19");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(EXCHANGE_NAME, "topic");
-        String queueName = channel.queueDeclare().getQueue();
+        String queueName = channel.queueDeclare("query-test", true, false, false, null).getQueue();
+        //String queueName = channel.queueDeclare().getQueue();
 
         if (argv.length < 1) {
             System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
@@ -33,7 +34,8 @@ public class ReceiveLogsTopic {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [x] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
         };
-        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
+        });
     }
 }
 

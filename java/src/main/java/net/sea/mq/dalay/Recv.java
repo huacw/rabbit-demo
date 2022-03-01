@@ -39,7 +39,7 @@ public class Recv {
 //        AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
 //        AMQP.BasicProperties properties = builder.expiration(String.valueOf(1000)).deliveryMode(2).build();
 //        channel.basicPublish("", "DELAY_QUEUE", properties, "test".getBytes("utf-8"));
-        RabbitMQUtil.RabbitMQConsume consume = new RabbitMQUtil.RabbitMQConsume("192.168.3.162", 5672, "/", "admin", "admin", "MAIN_QUEUE", "DELAY_QUEUE", (RabbitMQUtil.IMessageHandler<byte[], String>) data -> {
+        RabbitMQUtil.RabbitMQConsume consume = new RabbitMQUtil.RabbitMQConsume("192.168.2.162", 5672, "/", "admin", "admin", "MAIN_QUEUE", "DELAY_QUEUE", (RabbitMQUtil.IMessageHandler<byte[], String>) data -> {
             if (data == null) {
                 return null;
             }
